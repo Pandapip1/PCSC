@@ -439,14 +439,17 @@ static void HPAddDevice(struct udev_device *dev)
 					readerTracker[index].fullName);
 				RFRemoveReader(readerTracker[index].fullName,
 					PCSCLITE_HP_BASE_PORT + index, REMOVE_READER_FLAG_REMOVED);
+
 				free(readerTracker[index].devpath);
 				readerTracker[index].devpath = NULL;
 				free(readerTracker[index].fullName);
 				readerTracker[index].fullName = NULL;
 				free(readerTracker[index].sysname);
 				readerTracker[index].sysname = NULL;
+				UNREF_READER(rContext);
 				break;
 			}
+			UNREF_READER(rContext);
 			return;
 		}
 	}
